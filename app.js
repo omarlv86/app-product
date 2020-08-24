@@ -7,8 +7,19 @@ class Product {
 }
 
 class UI {
-    addProduct(){
-
+    addProduct(product){
+        const productList = document.getElementById('product-list');
+        const element = document.createElement('div');
+        element.innerHTML = `
+        <div class="card text-center mb-4>
+            <div class="card-body">
+                <p><strong>Product name</strong>: ${product.name}
+                <strong>Product price</strong>: ${product.price}
+                <strong>Product year</strong>: ${product.year}</p>
+            </div>
+        </div>
+        `;
+        productList.appendChild(element);
     }
 
     deleteProduct(){
@@ -27,9 +38,10 @@ document.getElementById('product-form').addEventListener('submit', function(e){
     const price = document.getElementById('price').value;
     const year = document.getElementById('year').value;
 
-    console.log(name, price, year);
+    const product = new Product(name, price, year);
 
-    console.log(new Product(name, price, year))
+    const ui = new UI();
+    ui.addProduct(product);
 
     e.preventDefault();
 
