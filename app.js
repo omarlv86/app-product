@@ -11,11 +11,12 @@ class UI {
         const productList = document.getElementById('product-list');
         const element = document.createElement('div');
         element.innerHTML = `
-        <div class="card text-center mb-4>
+        <div class="card text-center mb-4" >
             <div class="card-body">
-                <p><strong>Product name</strong>: ${product.name}
+                <strong>Product name</strong>: ${product.name}
                 <strong>Product price</strong>: ${product.price}
-                <strong>Product year</strong>: ${product.year}</p>
+                <strong>Product year</strong>: ${product.year}
+                <a href="#" class="btn btn-outline-danger" name="delete">Danger</a>
             </div>
         </div>
         `;
@@ -27,8 +28,10 @@ class UI {
         document.getElementById('product-form').reset();
     }
 
-    deleteProduct(){
-
+    deleteProduct(element){
+        if(element.name === 'delete'){
+            element.parentElement.parentElement.remove();
+        }
     }
 
     showMessage(){
@@ -49,5 +52,10 @@ document.getElementById('product-form').addEventListener('submit', function(e){
     ui.addProduct(product);
 
     e.preventDefault();
+})
 
+
+document.getElementById('product-list').addEventListener('click', function(e){
+    const ui = new UI();
+    ui.deleteProduct(e.target);
 })
