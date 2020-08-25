@@ -31,11 +31,22 @@ class UI {
     deleteProduct(element){
         if(element.name === 'delete'){
             element.parentElement.parentElement.remove();
+            this.showMessage('Product Deleted Successfully',  'info');
         }
     }
 
-    showMessage(){
-
+    showMessage(message, cssClass){
+        const div = document.createElement('div');
+        //div.className = 'alert alert-' + cssClass;
+        div.className = `alert alert-${cssClass} mt-4`; 
+        div.appendChild(document.createTextNode(message));
+        //showing in DOM
+        const container = document.querySelector('.container');
+        const app = document.querySelector('#App');
+        container.insertBefore(div, app);
+        setTimeout(function(){
+            document.querySelector('.alert').remove();
+        }, 3000);
     }
 }
 
@@ -49,8 +60,15 @@ document.getElementById('product-form').addEventListener('submit', function(e){
     const product = new Product(name, price, year);
 
     const ui = new UI();
-    ui.addProduct(product);
 
+    if(name === '' || price === '' || year === ''){
+        ui.showMessage('Complete fields please', 'danger');
+    }else{
+        ui.addProduct(product);
+        ui.showMessage('Product added successfully', 'success');
+
+    }
+    
     e.preventDefault();
 })
 
